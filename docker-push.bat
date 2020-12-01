@@ -1,0 +1,1 @@
+docker push evert1981/dashboard-ui:latest

@@ -1,0 +1,1 @@
+docker build -t evert1981/dashboard-ui:latest .
