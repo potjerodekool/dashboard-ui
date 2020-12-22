@@ -1,4 +1,5 @@
 <template>
+  <button class="btn btn-secondary forget-button" v-on:click="$router.push('/dashboard/config')">Config</button>
   <div class="App jumbotron d-flex">
     <div class="container">
       <div class="row">
@@ -53,11 +54,17 @@ export default defineComponent({
   },
 
   methods: {
-    formatDate(date: string) {
+    formatDate(date: any) {
       if (!date) {
-        return ""
+        return "";
       } else {
-        return LocalDateTime.parse(date).format(DateTimeFormatter.ofPattern('dd-MM-yyyy HH:mm:ss'))
+          const dayOfMonth = this.padLeft(date.dayOfMonth, 2);
+          const monthValue = this.padLeft(date.monthValue, 2);
+          const hour = this.padLeft(date.hour, 2);
+          const minute = this.padLeft(date.minute, 2);
+          const second = this.padLeft(date.second, 2);
+
+          return `${dayOfMonth}-${monthValue}-${date.year} ${hour}:${minute}:${second}`
       }
     },
 

@@ -9,6 +9,7 @@
     "@js-joda/core": "^3.2.0",
     "axios": "^0.21.0",
     "buefy": "^0.9.4",
+    "duo-list": "0.0.1",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-rc.1"
   },

@@ -1,7 +1,9 @@
-import { createApp } from "vue";
-import App from "./App.vue";
+import { createApp } from 'vue';
+import App from './App.vue';
 import router from './router.ts';
-import api from './api/api'
+import api from './api/api';
+import { applyPolyfills, defineCustomElements } from 'duo-list/loader';
+import { DuoList } from 'duo-list';
 
 const app = createApp(App);
 
@@ -36,6 +38,23 @@ api.interceptors.response.use(response => {
   }
 });
 
+if (!window.customElements.get('duo-list')) {
+  window.customElements.define('duo-list', DuoList)
+  app.config.isCustomElement = (tag) => {
+    return tag == "duo-list"
+  }
+  
+  const defaultWanringHandler = app.config.warnHandler;
+  app.config.warnHandler = (msg) => {
+    // msg: "Failed to resolve component: duo-list"
+    if (msg.startsWith("Failed to resolve component:") && msg.indexOf("duo-list") > -1) {
+  
+    } else if (defaultWanringHandler) {
+      defaultWanringHandler(msg);
+    }
+  }
+}
+
 app.use(router);
 app.mount("#app");
 
@@ -47,5 +66,3 @@ if (import.meta.hot) {
     app.unmount();
   });
 }
-
-
